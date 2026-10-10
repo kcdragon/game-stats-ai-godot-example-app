@@ -1,5 +1,11 @@
 extends Node
 
+const SURVIVAL_ACHIEVEMENTS = {
+	10: "Survived 10 Seconds",
+	30: "Survived 30 Seconds",
+	60: "Survived 60 Seconds",
+}
+
 @export var mob_scene: PackedScene
 var score
 
@@ -50,6 +56,8 @@ func _on_MobTimer_timeout():
 func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
+	if score in SURVIVAL_ACHIEVEMENTS:
+		GameStats.unlock(SURVIVAL_ACHIEVEMENTS[score])
 
 
 func _on_StartTimer_timeout():
